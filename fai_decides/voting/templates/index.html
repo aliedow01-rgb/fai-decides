@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FAI Decides</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+  <div class="text-center p-6 bg-blue-900 text-white">
+    <h1 class="text-3xl font-bold">People's Choice / Fai Decides</h1>
+    <p class="text-sm mt-2">This is an Opinion Poll. Not affiliated with IEBC.</p>
+  </div>
+
+  <div class="max-w-6xl mx-auto p-6">
+    <input id="phone" type="text" placeholder="07XXXXXXXX" class="w-full p-3 border rounded mb-6">
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {% for c in candidates %}
+      <div class="bg-white shadow-lg rounded-xl p-4">
+        <img src="{{ c.image.url }}" class="w-full h-64 object-cover rounded">
+        <h2 class="text-xl font-bold mt-3">{{ c.name }}</h2>
+        <p class="text-gray-600">{{ c.bio }}</p>
+        <p class="font-bold text-green-600">Votes: {{ c.total_votes }}</p>
+        <button onclick="vote({{c.id}})" class="w-full mt-4 bg-green-600 text-white py-3 rounded font-bold">
+          Vote 85 KSH via M-Pesa
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+<script>
+function vote(candidate_id){
+  let phone = document.getElementById('phone').value;
+  if(!phone) return alert('Weka namba ya M-Pesa');
+
+  let formData = new FormData();
+  formData.append('phone', phone);
+  formData.append('candidate_id', candidate_id);
+  formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+  fetch('/stk/', {method: 'POST', body: formData})
+ .then(res => res.json())
+ .then(data => alert('Tafadhali ingiza PIN ya M-Pesa'))
+}
+</script>
+</body>
+</html>
