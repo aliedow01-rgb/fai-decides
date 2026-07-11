@@ -1,0 +1,6 @@
+    Django==5.0.6
+    django-daraja==1.1.0
+    gunicorn
+    whitenoise
+    pillow
+    psycopg2-binary
