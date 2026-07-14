@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w3#9a1v1y7d#e!4!dc532v+rlcj(8p#hd*t5+-g=c_m^b4-p@k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -120,10 +120,15 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
 # M-PESA SETTINGS
-MPESA_ENVIRONMENT = 'sandbox' # change to 'production' later
-MPESA_CONSUMER_KEY = ' cfQyZkfWGRy2wMq2s6ADA0znkMyAS6pJpLtJxW1gWRlkbGYg'
-MPESA_CONSUMER_SECRET = '5SXv19WF4A2zlutGuuBbA9xpygWyYUt1W0GADU50ObtAkzGUYlCcyB6Wfrur7ANR'
+import os
+from decouple import config
+
+# M-PESA SETTINGS
+MPESA_ENVIRONMENT = config('MPESA_ENVIRONMENT', default='sandbox')
+MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
 MPESA_SHORTCODE = '174379'
-MPESA_PASSKEY = 'N/A'
-MPESA_CALLBACK_URL = 'https://your-domain.com/callback/'
+MPESA_PASSKEY = config('MPESA_PASSKEY')
+MPESA_CALLBACK_URL = 'https://your-site.onrender.com/callback/'
