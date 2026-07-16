@@ -121,6 +121,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
+
 # M-PESA SETTINGS
 import os
 from decouple import config
