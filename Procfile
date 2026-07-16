@@ -1,1 +1,1 @@
-  web: gunicorn fai_decides.wsgi:application --chdir fai_decides
+  web: cd fai_decides && gunicorn fai_decides.wsgi:application
